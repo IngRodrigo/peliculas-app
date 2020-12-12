@@ -22,7 +22,9 @@ export class MoviesService {
     return this.http.get(query);//rod_dev: se lo pasamos al metodo de la peticion
   }
   getCarteleraPeliculas(){
-
+    const hoy= new Date();
+    const ultimoDia= new Date(hoy.getFullYear(), hoy.getMonth()+1,0 ).getDate();
+    //console.log(ultimoDia);
 
     //return this.http.get<RespuestaMDB>(`/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31&`);
     return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31`);
