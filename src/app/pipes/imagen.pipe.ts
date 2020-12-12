@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-const URL='https://image.tmdb.org/t/p';
+const URL=environment.imgPath;
 
 @Pipe({
   name: 'imagen'
@@ -15,7 +16,7 @@ export class ImagenPipe implements PipeTransform {
     }
 
     const imgUrl=`${URL}/w500${img}`;
-    console.log(imgUrl);
+    //console.log(imgUrl);
     return imgUrl;
   }
 }

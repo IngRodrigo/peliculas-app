@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { RespuestaMDB } from '../interfaces/interfaces';
 
+
+const URL=environment.urlApi;
+const apiKey=environment.apiKey;
 @Injectable({
   providedIn: 'root'
 })
@@ -9,9 +13,18 @@ export class MoviesService {
 
   constructor(private http:HttpClient) { }
 
+
+  private ejecutarQuery<T>(query:string){
+    //rod_dev:aramamos el query 
+    query=URL+query;
+    query+=`&api_key=${apiKey}&language=es&include_image_language=es`;
+    console.log(query);
+    return this.http.get(query);//rod_dev: se lo pasamos al metodo de la peticion
+  }
   getCarteleraPeliculas(){
 
 
-    return this.http.get<RespuestaMDB>(`https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31&api_key=22c72178aec0a6ae233cf13db61a650e&language=es&include_image_language=es`);
-  }
+    //return this.http.get<RespuestaMDB>(`/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31&`);
+    return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31`);
+   }
 }
